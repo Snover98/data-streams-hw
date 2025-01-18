@@ -20,4 +20,4 @@ class FullFm:
         return self
     
     def estimate(self) -> float:
-        return np.median([est.estimate() for est in self.estimators])
+        return float(np.median([est.estimate() for est in self.estimators]))
