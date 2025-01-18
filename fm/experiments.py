@@ -16,7 +16,7 @@ def random_hash(value: int) -> float:
 
 def seeded_hash(hash_seed: int) -> Callable[[int], float]:
     def sub_hash(value: int) -> float:
-        return random_hash(value + hash_seed)
+        return random_hash(value + 1153 * hash_seed)
     return sub_hash
 
 
@@ -39,6 +39,9 @@ def run_experiments(values: np.ndarray, base_seeds: list[int], num_hashes: int, 
         return [run_experiment(values, s, num_hashes, num_betas) for s in tqdm(base_seeds)]
 
     with ProcessPoolExecutor(max_workers=num_procs) as executor:
+        # TODO: remove unique
+        values = np.unique(values)
+
         futures = [executor.submit(run_experiment, values, s, num_hashes, num_betas) for s in base_seeds]
         results =  [f.result() for f in tqdm(as_completed(futures), total=len(futures))]
 
