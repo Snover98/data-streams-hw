@@ -1,0 +1,17 @@
+import numpy as np
+
+from alpha_fm import AlphaFm
+
+from typing import Callable
+
+class BetaFm:
+    def __init__(self, hash_funcs: list[Callable[[int], float]]):
+        self.estimators: tuple[AlphaFm, ...] = tuple(AlphaFm(func) for func in hash_funcs)
+    
+    def update(self, values: np.ndarray) -> 'BetaFm':
+        for est in self.estimators:
+            est.update(values)
+        return self
+    
+    def estimate(self) -> float:
+        return sum(est.estimate() / len(self.estimators) for est in self.estimators)
