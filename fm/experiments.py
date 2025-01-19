@@ -39,7 +39,7 @@ def run_experiments(values: np.ndarray, base_seeds: list[int], num_hashes: int, 
 
     with ProcessPoolExecutor(max_workers=num_procs) as executor:
         # TODO: remove unique
-        values = np.unique(values)
+        # values = np.unique(values)
 
         futures = [executor.submit(run_experiment, values, s, num_hashes, num_betas) for s in base_seeds]
         results =  [
