@@ -21,8 +21,7 @@ def seeded_hash(hash_seed: int) -> Callable[[int], float]:
 
 
 def run_experiment(values: np.ndarray, base_seed: int, num_hashes: int, num_betas: int) -> float:
-    generator = np.random.default_rng(seed=base_seed)
-    hash_seeds = generator.choice(np.arange(1, 10001), num_hashes, replace=False)
+    hash_seeds = np.arange(0, num_hashes) + base_seed * num_hashes
     hash_funcs = [seeded_hash(seed) for seed in hash_seeds]
 
     if num_betas == 1 and num_hashes == 1:
