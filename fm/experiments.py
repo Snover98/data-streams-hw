@@ -43,6 +43,8 @@ def run_experiments(values: np.ndarray, base_seeds: list[int], num_hashes: int, 
         values = np.unique(values)
 
         futures = [executor.submit(run_experiment, values, s, num_hashes, num_betas) for s in base_seeds]
-        results =  [f.result() for f in tqdm(as_completed(futures), total=len(futures))]
+        results =  [
+            f.result() for f in tqdm(as_completed(futures), total=len(futures), desc=f"{num_hashes=}, {num_betas=}")
+        ]
 
     return results

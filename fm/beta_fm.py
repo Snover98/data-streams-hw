@@ -14,4 +14,4 @@ class BetaFm:
         return self
     
     def estimate(self) -> float:
-        return 1 / np.mean([est.min_hash for est in self.estimators]) - 1
+        return float(1 / np.mean([est.min_hash for est in self.estimators]) - 1)
