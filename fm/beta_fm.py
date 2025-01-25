@@ -2,10 +2,10 @@ import numpy as np
 
 from alpha_fm import AlphaFm
 
-from typing import Callable
+from typing import Callable, Sequence
 
 class BetaFm:
-    def __init__(self, hash_funcs: list[Callable[[int], float]]):
+    def __init__(self, hash_funcs: Sequence[Callable[[int], float]]):
         self.estimators: tuple[AlphaFm, ...] = tuple(AlphaFm(func) for func in hash_funcs)
     
     def update(self, values: np.ndarray) -> 'BetaFm':
