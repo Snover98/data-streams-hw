@@ -29,7 +29,7 @@ def run_experiment(values: np.ndarray, base_seed: int, num_hashes: int, num_beta
     elif num_betas == 1:
         fm = BetaFm(hash_funcs)
     else:
-        fm = FullFm(hash_funcs, len(hash_funcs) // num_betas)
+        fm = FullFm(hash_funcs, int(np.ceil(len(hash_funcs) / num_betas)))
     return fm.update(values).estimate()
 
 
